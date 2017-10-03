@@ -1,0 +1,32 @@
+[
+  {
+    "cn_user_id": "0X00001",
+    "cn_user_name": "admin",
+    "cn_user_password": "123456",
+    "cn_user_desc": ""
+  },
+  {
+    "cn_user_id": "0X00002",
+    "cn_user_name": "test1",
+    "cn_user_password": "123456",
+    "cn_user_desc": ""
+  },
+  {
+    "cn_user_id": "0X00003",
+    "cn_user_name": "test2",
+    "cn_user_password": "123456",
+    "cn_user_desc": ""
+  },
+  {
+    "cn_user_id": "0X00004",
+    "cn_user_name": "test3",
+    "cn_user_password": "123456",
+    "cn_user_desc": ""
+  },
+  {
+    "cn_user_id": "0X00005",
+    "cn_user_name": "test4",
+    "cn_user_password": "123456",
+    "cn_user_desc": ""
+  }
+]
