@@ -53,6 +53,9 @@ public class UserController {
     @RequestMapping("/user/updatePassword")
     @ResponseBody
     public NoteResult updatePassword(String id, String token, String oldPassword, String newPassword) {
-        return userService.updatePassword(id, token, oldPassword, newPassword);
+        NoteResult noteResult = userService.validator(id, token);
+        if (noteResult.getStatus() == 0)
+            noteResult = userService.updatePassword(id, oldPassword, newPassword);
+        return noteResult;
     }
 }

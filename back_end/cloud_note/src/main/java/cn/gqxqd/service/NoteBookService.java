@@ -4,5 +4,11 @@ import cn.gqxqd.util.NoteResult;
 
 public interface NoteBookService {
 
-    NoteResult findAll(String id);
+    NoteResult findAllNoteBook(String id);
+
+    NoteResult createNoteBook(String id, String bookName, String bookDesc);
+
+    NoteResult updateNoteBook(String id, String bookId, String bookName, String bookDesc);
+
+    NoteResult deleteNoteBook(String id, String bookId);
 }

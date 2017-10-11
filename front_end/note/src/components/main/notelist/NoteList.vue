@@ -5,7 +5,9 @@
     </div>
     <div class="content">
       <el-row>
-        <v-note v-for="note in noteList" :note="note" :key="note.id"></v-note>
+        <div v-for="note in noteList" :key="note.id" @click="clickNote(note)">
+          <v-note :note="note"></v-note>
+        </div>
       </el-row>
     </div>
   </div>
@@ -93,6 +95,11 @@
     },
     components: {
       'v-note': Note
+    },
+    methods: {
+      clickNote (note) {
+        this.$emit('clickNote', note);
+      }
     }
   };
 </script>
@@ -106,7 +113,6 @@
         font-size: 18px
         color: white
         background-color: #20A0FF
-        box-shadow: inset 10px 5px 25px -15px gray
     .content
       .note-item
         box-sizing: border-box

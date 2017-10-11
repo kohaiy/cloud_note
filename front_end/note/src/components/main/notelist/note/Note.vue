@@ -19,8 +19,7 @@
     position: relative
     height: 50px
     border-bottom: 1px solid rgba(0, 0, 0, .1)
-    background-color: rgba(0, 255, 255, .05)
-    cursor: pointer;
+    cursor: pointer
     transition: all .3s
     color: #324157
     .icon
@@ -44,5 +43,5 @@
       font-size: 12px
       color: #AEAEAE
     &:hover
-      background-color: rgba(0, 255, 255, 0)
+      background-color: rgba(0, 0, 0, .1)
 </style>

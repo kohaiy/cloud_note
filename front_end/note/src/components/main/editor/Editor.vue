@@ -1,6 +1,6 @@
 <template>
   <div class="editor">
-    <el-tabs v-model="editableTabsValue2" closable>
+    <el-tabs v-model="editableTabsValue" closable>
       <el-tab-pane
         v-for="(item, index) in editableTabs2"
         :key="item.name"
@@ -10,8 +10,16 @@
         <div class="title-label" v-text="item.title"></div>
         <div id="editor">
           <el-input v-model="item.title" id="note-title" placeholder="笔记标题..."></el-input>
-          <el-input v-model="item.content" id="note-content" type="textarea" placeholder="开始记录..."></el-input>
-          <div id="preview" v-html="markedTools(item.content)"></div>
+          <div class="pull-right">
+            预览
+            <el-switch
+              v-model="showPreview" on-text="" off-text="">
+            </el-switch>
+          </div>
+          <el-input v-model="item.content" id="note-content" autosize type="textarea" placeholder="开始记录..."></el-input>
+          <transition name="el-fade-in-linear">
+            <div v-show="showPreview" id="preview" v-html="markedTools(item.content)"></div>
+          </transition>
         </div>
       </el-tab-pane>
     </el-tabs>
@@ -29,18 +37,27 @@
   });
 
   export default {
+    props: {
+      editableTabs2: Array
+    },
+    created () {
+//      var data = [{
+//        title: 'Tab 1',
+//        name: '1',
+//        content: 'Tab 1 content'
+//      }, {
+//        title: 'Tab 2',
+//        name: '2',
+//        content: 'Tab 2 content'
+//      }];
+//      this.editableTabs2.push(data[0]);
+//      this.editableTabs2.push(data[1]);
+    },
     data () {
       return {
-        editableTabsValue2: '1',
-        editableTabs2: [{
-          title: 'Tab 1',
-          name: '1',
-          content: 'Tab 1 content'
-        }, {
-          title: 'Tab 2',
-          name: '2',
-          content: 'Tab 2 content'
-        }],
+        showPreview: false,
+        editableTabsValue: 'welcome',
+//        editableTabs2: [],
         tabIndex: 2
       };
     },
@@ -65,6 +82,7 @@
         margin: 10px 0
       #preview
         position: relative
+        overflow: auto
         width: 100%
         min-height: 50px
         margin: 10px 0

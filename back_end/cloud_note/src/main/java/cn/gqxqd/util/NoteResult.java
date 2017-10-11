@@ -1,7 +1,7 @@
 package cn.gqxqd.util;
 
 public class NoteResult {
-    private int status;
+    private int status = 1;
     private String message;
     private Object data;
 

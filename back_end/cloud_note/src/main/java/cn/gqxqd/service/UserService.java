@@ -15,5 +15,5 @@ public interface UserService {
 
     NoteResult validator(String id, String token);
 
-    NoteResult updatePassword(String id, String token, String oldPassword, String newPassword);
+    NoteResult updatePassword(String id, String oldPassword, String newPassword);
 }

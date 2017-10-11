@@ -6,7 +6,7 @@ function join (url) {
 }
 
 function noteBook (url) {
-  return join('/notebook' + url);
+  return join('/book' + url);
 }
 
 export default {
@@ -15,5 +15,8 @@ export default {
   checkUsername: join('/user/checkUsername'),
   validator: join('/user/validator'),
   updatePassword: join('/user/updatePassword'),
-  nbFindNormal: noteBook('/findNormal')
+  nb_FindAll: noteBook('/findAll'),
+  nb_create: noteBook('/create'),
+  nb_update: noteBook('/update'),
+  nb_delete: noteBook('/delete')
 };
