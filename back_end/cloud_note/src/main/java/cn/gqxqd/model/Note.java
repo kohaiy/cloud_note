@@ -10,6 +10,7 @@ public class Note {
     private String cn_note_title;
     private String cn_note_content;
     private Timestamp cn_note_createtime;
+    private Timestamp cn_note_updatetime;
 
     public Integer getCn_note_id() {
         return cn_note_id;
@@ -59,6 +60,14 @@ public class Note {
         this.cn_note_createtime = cn_note_createtime;
     }
 
+    public Timestamp getCn_note_updatetime() {
+        return cn_note_updatetime;
+    }
+
+    public void setCn_note_updatetime(Timestamp cn_note_updatetime) {
+        this.cn_note_updatetime = cn_note_updatetime;
+    }
+
     @Override
     public String toString() {
         return "Note{" +
@@ -68,6 +77,7 @@ public class Note {
                 ", cn_note_title='" + cn_note_title + '\'' +
                 ", cn_note_content='" + cn_note_content + '\'' +
                 ", cn_note_createtime=" + cn_note_createtime +
+                ", cn_note_updatetime=" + cn_note_updatetime +
                 '}';
     }
 }

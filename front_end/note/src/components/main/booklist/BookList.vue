@@ -20,7 +20,7 @@
         <div v-if="bookList == null || bookList.length == 0" style="text-align:center;height: 50px;line-height: 50px;">
           暂没有笔记本！
         </div>
-        <el-menu-item v-for="(item,index) in bookList" :index="index" :title="item.cn_notebook_desc">
+        <el-menu-item v-for="(item,index) in bookList" :index="index+''" :key="item.cn_notebook_id" :title="item.cn_notebook_desc">
           <el-popover
             placement="top"
             title="操作"

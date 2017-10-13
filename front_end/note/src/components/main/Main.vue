@@ -1,18 +1,28 @@
 <template>
   <div class="main">
     <div id="book-list" class="book-list">
-      <v-book-list v-on:addBook="showAddBook" v-on:updateBook="showUpdateBook" v-on:deleteBook="deleteBook"
-                   :bookList="bookList"></v-book-list>
+      <v-book-list
+        v-on:addBook="showAddBook"
+        v-on:updateBook="showUpdateBook"
+        v-on:deleteBook="deleteBook"
+        :bookList="bookList"></v-book-list>
     </div>
 
     <div id="note-list" class="note-list">
-      <v-note-list v-on:clickNote="clickNote"></v-note-list>
+      <v-note-list
+        v-on:addNote="addNote"
+        v-on:clickNote="clickNote"
+        :noteList="noteList"
+      ></v-note-list>
     </div>
 
     <div class="editor">
-      <v-editor :editableTabs2="openNote"></v-editor>
+      <v-editor
+        :noteTabs="openNote"
+        :noteTabsValue="noteTabsValue"
+        v-on:closeTab="closeTab"
+      ></v-editor>
     </div>
-
 
 
     <el-dialog title="修改笔记本" :visible.sync="updateBookDialogVisible" :size="dialogSize">
@@ -53,16 +63,27 @@
   import Editor from './editor/Editor.vue';
   import { CommonService } from '../../service/CommonService';
   import { NoteBookService } from '../../service/NoteBookService';
+  import { NoteService } from '../../service/NoteService';
 
   export default {
     created () {
       CommonService.isLogin(this.$store, () => {}, () => {
         this.$message.error('您还没有登录！');
-        this.$router.push('login');
+//        this.$router.push('login');
       });
       NoteBookService.findAll(data => {
         this.bookList = data;
+        console.log('----NoteBookList----');
         console.log(data);
+        console.log('----/NoteBookList----');
+      }, err => {
+        this.$message.error(err);
+      });
+      NoteService.findAll(data => {
+        this.noteList = data;
+        console.log('----NoteList----');
+        console.log(data);
+        console.log('----/NoteList----');
       }, err => {
         this.$message.error(err);
       });
@@ -91,6 +112,7 @@
           ]
         },
         bookList: [],
+        noteList: [],
         showBookList: true,
         addBookDialogVisible: false,
         updateBookDialogVisible: false,
@@ -98,11 +120,8 @@
           title: '欢迎使用云笔记',
           name: 'welcome',
           content: '# 欢迎使用云笔记\n\n>这里使用的是`markdowm`编辑器。\n\n## 示例\n\n# h1\n## h2\n### h3\n\n```js\nvar a = \'Hello World!\';\nalert(a);\n```\n'
-        }, {
-          title: 'Tab 2',
-          name: '2',
-          content: 'Tab 2 content'
-        }]
+        }],
+        noteTabsValue: 'welcome'
       };
     },
     components: {
@@ -175,10 +194,31 @@
       },
       clickNote (note) {
         console.log(note);
-        this.openNote.push({
-          title: 'Tab 1' + new Date().getTime(),
-          name: '3333' + new Date().getTime(),
-          content: 'Tab 333 content'
+        var flag = this.openNote.some(_note => {
+          return _note.name === note.cn_note_id;
+        });
+        if (!flag) {
+          this.openNote.push({
+            title: note.cn_note_title,
+            name: note.cn_note_id,
+            content: note.cn_note_content
+          });
+        }
+        console.log(note.cn_note_id.toString());
+        this.noteTabsValue = note.cn_note_id.toString();
+      },
+      addNote () {
+        var note = {
+          title: '新建笔记',
+          name: 'new' + new Date().getTime(),
+          content: ''
+        };
+        this.openNote.push(note);
+        this.noteTabsValue = note.name;
+      },
+      closeTab (name) {
+        this.openNote = this.openNote.filter(note => {
+          return note.name !== name;
         });
       }
     },

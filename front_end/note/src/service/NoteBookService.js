@@ -7,7 +7,7 @@ export var NoteBookService = {
     let id = Cookies.get('user_id');
     let token = Cookies.get('user_token');
     let data = {id, token};
-    post(urls.nb_FindAll, data).then(res => {
+    post(urls.nb_findAll, data).then(res => {
       res = res.data;
       if (res.status === 0) {
         success(res.data);

@@ -1,16 +1,30 @@
 <template>
   <div class="note">
     <div class="icon"><i class="el-icon-document"></i></div>
-    <div class="title" v-text="note.title"></div>
+    <div class="title" v-text="note.cn_note_title"></div>
     <div class="datetime">
-      最后编辑：<span v-text="note.datetime"></span>
+      {{formatDate(note.cn_note_updatetime)}}
     </div>
   </div>
 </template>
-
+<!--cn_note_content-->
+<!--cn_note_createtime-->
+<!--cn_note_id-->
+<!--cn_note_title-->
+<!--cn_notebook_id-->
+<!--cn_user_id-->
 <script type="text/ecmascript-6">
+  import moment from 'moment';
+
+  moment.locale('zh-cn');
+
   export default {
-    props: ['note']
+    props: ['note'],
+    methods: {
+      formatDate (timestamp) {
+        return moment(timestamp).fromNow();
+      }
+    }
   };
 </script>
 

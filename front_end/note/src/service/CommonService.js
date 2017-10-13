@@ -12,6 +12,7 @@ export let CommonService = {
       if (id != null && token != null) {
         user = {id, name, token};
         post(urls.validator, user).then(res => {
+          console.log(res);
           res = res.data;
           if (res.status === 0) {
             store.commit('user', user);

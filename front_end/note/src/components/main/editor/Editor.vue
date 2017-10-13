@@ -1,11 +1,12 @@
 <template>
   <div class="editor">
-    <el-tabs v-model="editableTabsValue" closable>
+    <el-tabs v-model="noteTabsValue"
+             closable>
       <el-tab-pane
-        v-for="(item, index) in editableTabs2"
+        v-for="(item, index) in noteTabs"
         :key="item.name"
         :label="item.title"
-        :name="item.name"
+        :name="item.name.toString()"
       >
         <div class="title-label" v-text="item.title"></div>
         <div id="editor">
@@ -16,7 +17,10 @@
               v-model="showPreview" on-text="" off-text="">
             </el-switch>
           </div>
-          <el-input v-model="item.content" id="note-content" autosize type="textarea" placeholder="开始记录..."></el-input>
+          <transition name="el-fade-in-linear">
+            <el-input v-show="!showPreview" v-model="item.content" id="note-content" autosize type="textarea"
+                      placeholder="开始记录..."></el-input>
+          </transition>
           <transition name="el-fade-in-linear">
             <div v-show="showPreview" id="preview" v-html="markedTools(item.content)"></div>
           </transition>
@@ -38,32 +42,25 @@
 
   export default {
     props: {
-      editableTabs2: Array
+      noteTabs: Array,
+      noteTabsValue: String
     },
-    created () {
-//      var data = [{
-//        title: 'Tab 1',
-//        name: '1',
-//        content: 'Tab 1 content'
-//      }, {
-//        title: 'Tab 2',
-//        name: '2',
-//        content: 'Tab 2 content'
-//      }];
-//      this.editableTabs2.push(data[0]);
-//      this.editableTabs2.push(data[1]);
-    },
+    created () {},
     data () {
       return {
-        showPreview: false,
-        editableTabsValue: 'welcome',
-//        editableTabs2: [],
-        tabIndex: 2
+        showPreview: false
       };
     },
     methods: {
       markedTools (md) {
         return marked(md);
+      },
+      closeTab (name) {
+        this.$emit('closeTab', name);
+//        console.log(name);
+//        this.noteTabs = this.noteTabs.filter(note => {
+//          return note.name !== name;
+//        });
       }
     }
   };
