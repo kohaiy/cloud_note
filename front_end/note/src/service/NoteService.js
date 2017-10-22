@@ -23,7 +23,7 @@ export var NoteService = {
     let id = Cookies.get('user_id');
     let token = Cookies.get('user_token');
     let data2 = {id, token, ...data};
-    post(urls.nb_create, data2).then(res => {
+    post(urls.n_add, data2).then(res => {
       res = res.data;
       if (res.status === 0) {
         success(res.data);

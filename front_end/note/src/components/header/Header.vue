@@ -15,8 +15,8 @@
       </el-menu-item>
       <el-menu-item v-if="user" index="/user" class="pull-right">
         <el-tooltip class="item" effect="dark" content="点击 进入个人中心" placement="bottom-end">
-          <div style="position: relative;"><i class="text-icon glyphicon glyphicon-user"></i>欢迎您，<span
-            v-text="user.name"></span>！
+          <div style="position: relative;"><i class="text-icon glyphicon glyphicon-user"></i><span class="hidden-xs">欢迎您，<span
+            v-text="user.name"></span>！</span><span class="visible-xs-inline-block">我</span>
           </div>
         </el-tooltip>
       </el-menu-item>

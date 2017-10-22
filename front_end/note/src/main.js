@@ -24,6 +24,10 @@ new Vue({
         this.$store.commit('user', username);
       }
     }
+    document.body.removeChild(document.getElementById('app-loading'));
+    setTimeout(function () {
+      document.getElementById('app').style.display = 'block';
+    }, 500);
   },
   router,
   store,

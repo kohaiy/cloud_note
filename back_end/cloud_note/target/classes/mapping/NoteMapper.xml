@@ -5,4 +5,9 @@
     <select id="findAll" parameterType="int" resultType="cn.gqxqd.model.Note">
         SELECT * FROM cn_note WHERE cn_user_id = #{cn_user_id}
     </select>
+
+    <insert id="save" parameterType="cn.gqxqd.model.Note" useGeneratedKeys="true" keyProperty="cn_note_id">
+        INSERT INTO cn_note (cn_notebook_id,cn_user_id,cn_note_title,cn_note_content,cn_note_createtime,cn_note_type)
+        VALUES (#{cn_notebook_id},#{cn_user_id},#{cn_note_title},#{cn_note_content},#{cn_note_createtime},#{cn_note_type})
+    </insert>
 </mapper>

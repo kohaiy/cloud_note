@@ -1,4 +1,5 @@
-var base = 'http://localhost:8080/api';
+// var base = 'http://localhost:8080/api';
+var base = 'http://123.207.98.175:8080/cloud_note/api';
 var suffix = '.api';
 
 function join (url) {
@@ -23,5 +24,6 @@ export default {
   nb_create: noteBook('/create'),
   nb_update: noteBook('/update'),
   nb_delete: noteBook('/delete'),
-  n_findAll: note('/findAll')
+  n_findAll: note('/findAll'),
+  n_add: note('/add')
 };

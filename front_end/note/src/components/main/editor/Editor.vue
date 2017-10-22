@@ -1,30 +1,17 @@
 <template>
   <div class="editor">
-    <el-tabs v-model="noteTabsValue"
+    <h1 v-if="noteTabs == null || noteTabs.length == 0">请从左侧打开或新建笔记！</h1>
+    <el-tabs v-model="noteTabsValue2"
+             @tab-remove="closeNote"
              closable>
       <el-tab-pane
         v-for="(item, index) in noteTabs"
-        :key="item.name"
+        :key="item.name.toString()"
         :label="item.title"
         :name="item.name.toString()"
       >
-        <div class="title-label" v-text="item.title"></div>
-        <div id="editor">
-          <el-input v-model="item.title" id="note-title" placeholder="笔记标题..."></el-input>
-          <div class="pull-right">
-            预览
-            <el-switch
-              v-model="showPreview" on-text="" off-text="">
-            </el-switch>
-          </div>
-          <transition name="el-fade-in-linear">
-            <el-input v-show="!showPreview" v-model="item.content" id="note-content" autosize type="textarea"
-                      placeholder="开始记录..."></el-input>
-          </transition>
-          <transition name="el-fade-in-linear">
-            <div v-show="showPreview" id="preview" v-html="markedTools(item.content)"></div>
-          </transition>
-        </div>
+        <h2 class="title-label text-center" v-text="item.title"></h2>
+        <div id="content" v-html="markedTools(item.content)"></div>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -48,19 +35,24 @@
     created () {},
     data () {
       return {
-        showPreview: false
+        showPreview: false,
+        noteTabsValue2: this.noteTabsValue.toString()
       };
     },
     methods: {
       markedTools (md) {
         return marked(md);
       },
-      closeTab (name) {
+      closeNote (name) {
         this.$emit('closeTab', name);
-//        console.log(name);
-//        this.noteTabs = this.noteTabs.filter(note => {
-//          return note.name !== name;
-//        });
+      }
+    },
+    watch: {
+      noteTabsValue (val) {
+        this.noteTabsValue2 = val.toString();
+      },
+      noteTabsValue2 (val) {
+        this.$emit('noteTabsValueChange', val);
       }
     }
   };
@@ -71,26 +63,14 @@
   .editor
     background-color: rgba(50, 65, 87, .1)
     box-shadow: inset 10px 5px 25px -15px gray
-    #editor
+    #content
       position: relative
-      padding: 0 10px
-      margin-bottom: 50px
-      #note-title
-        margin: 10px 0
-      #preview
-        position: relative
-        overflow: auto
-        width: 100%
-        min-height: 50px
-        margin: 10px 0
-        padding: 5px
-        background-color: #fff
-        &:after
-          position: absolute
-          top: 5px
-          right: 10px
-          content: '预览'
-          color: rgba(32, 160, 255, .5)
-        table
-          border: 1px solid gray
+      overflow: auto
+      width: 100%
+      min-height: 50px
+      margin: 0 10px
+      padding: 5px
+      background-color: #fff
+      table
+        border: 1px solid gray
 </style>

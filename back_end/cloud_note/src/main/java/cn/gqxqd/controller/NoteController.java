@@ -26,4 +26,14 @@ public class NoteController {
         }
         return noteResult;
     }
+
+    @RequestMapping("/note/add")
+    @ResponseBody
+    public NoteResult add(String id, String token, String bookId, String title, String content) {
+        NoteResult noteResult = userService.validator(id, token);
+        if (noteResult.getStatus() == 0) {
+            noteResult = noteService.createNote(id, bookId, title, content);
+        }
+        return noteResult;
+    }
 }

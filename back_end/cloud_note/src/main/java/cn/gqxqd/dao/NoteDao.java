@@ -9,4 +9,6 @@ import java.util.List;
 public interface NoteDao {
 
     List<Note> findAll(Integer cn_user_id);
+
+    void save(Note note);
 }

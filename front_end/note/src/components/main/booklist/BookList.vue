@@ -6,21 +6,15 @@
         <i class="el-icon-plus"></i>
       </div>
     </div>
-    <el-popover
-      ref="popover1"
-      placement="top-start"
-      title="标题"
-      width="200"
-      trigger="click"
-      content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
-    </el-popover>
-    <el-menu id="menu" default-active="1">
+    <el-menu id="menu" default-active="1" @select="selectBook">
       <el-submenu index="1">
         <template slot="title"><i class="text-icon glyphicon glyphicon-pencil"></i>我的分类</template>
         <div v-if="bookList == null || bookList.length == 0" style="text-align:center;height: 50px;line-height: 50px;">
           暂没有笔记本！
         </div>
-        <el-menu-item v-for="(item,index) in bookList" :index="index+''" :key="item.cn_notebook_id" :title="item.cn_notebook_desc">
+        <el-menu-item v-for="(item,index) in bookList" :index="item.cn_notebook_id.toString()"
+                      :key="item.cn_notebook_id"
+                      :title="item.cn_notebook_desc">
           <el-popover
             placement="top"
             title="操作"
@@ -34,9 +28,9 @@
           {{item.cn_notebook_name | bookName}}
         </el-menu-item>
       </el-submenu>
-      <el-menu-item index="2"><i class="text-icon glyphicon glyphicon-heart"></i>收藏</el-menu-item>
-      <el-menu-item index="3"><i class="text-icon glyphicon glyphicon-star"></i>活动</el-menu-item>
-      <el-menu-item index="4"><i class="text-icon glyphicon glyphicon-trash"></i>回收站</el-menu-item>
+      <el-menu-item index="collect"><i class="text-icon glyphicon glyphicon-heart"></i>收藏</el-menu-item>
+      <el-menu-item index="active"><i class="text-icon glyphicon glyphicon-star"></i>活动</el-menu-item>
+      <el-menu-item index="trash"><i class="text-icon glyphicon glyphicon-trash"></i>回收站</el-menu-item>
     </el-menu>
   </div>
 </template>
@@ -66,6 +60,9 @@
         }).then(() => {
           this.$emit('deleteBook', id);
         }).catch();
+      },
+      selectBook (index) {
+        this.$emit('selectBook', index);
       }
     },
     computed: {},
